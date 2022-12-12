@@ -1,0 +1,33 @@
+labelsempl:
+  Action: Aktion
+  Active: "\tAktiv"
+  Age: "Das Alter\r\n"
+  Confirm: Bestätigen
+  ConfirmDelete: Löschen Sie den Mitarbeiter
+  Employees: Angestellte
+  Gender: Gender
+  Information: Information
+  Name: Name
+  Promote: "FÖRDERFORMULAR\r\n"
+  StartingDate: "Anfangsdatum\r\n"
+  Team: Mannschaft
+manager:
+  Feedback: Feedback
+  Manager: Manager
+  ManagerFeedback: Feedback des Managers
+  Priority: Priorität
+  Select: Bitte auswählen
+manipulate:
+  Approve: Genehmigen
+  Cancel: Absagen
+  New: Neu
+  'No': Nein
+  Reject: Ablehnen
+  Save: Speichern
+  Submit: Einreichen
+  'Yes': Ja
+prolabel:
+  Comment: Kommentar
+  CreateDate: Erstellungsdatum
+  Creator: Schöpferin
+  TargetDate: Zieltermin

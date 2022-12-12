@@ -1,0 +1,33 @@
+labelsempl:
+  Action: Action
+  Active: Active
+  Age: Age
+  Confirm: Confirm
+  ConfirmDelete: Delete the employee
+  Employees: Employees
+  Gender: Gender
+  Information: Information
+  Name: Name
+  Promote: PROMOTE FORM
+  StartingDate: Starting Date
+  Team: Team
+manager:
+  Feedback: Feedback
+  Manager: Manager
+  ManagerFeedback: Manager's Feedback
+  Priority: Priority
+  Select: Please Select
+manipulate:
+  Approve: Approve
+  Cancel: Cancel
+  New: New
+  'No': 'No'
+  Reject: Reject
+  Save: Save
+  Submit: Submit
+  'Yes': 'Yes'
+prolabel:
+  Comment: Comment
+  CreateDate: Create Date
+  Creator: Creator
+  TargetDate: Target Date
