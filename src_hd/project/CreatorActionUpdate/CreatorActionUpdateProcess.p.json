@@ -1,0 +1,67 @@
+{
+  "format" : "10.0.0",
+  "id" : "184A91AD24D46E06",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "project.CreatorActionUpdate.CreatorActionUpdateData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start(Data)",
+      "config" : {
+        "callSignature" : "start",
+        "result" : {
+          "params" : [
+            { "name" : "data", "type" : "project.Data" }
+          ],
+          "map" : {
+            "result.data" : "in.data"
+          },
+          "code" : "ivy.log.debug(\"FEEDBACK: \" + in.data.feedback);"
+        },
+        "input" : {
+          "params" : [
+            { "name" : "data", "type" : "project.Data" }
+          ],
+          "map" : {
+            "out.data" : "param.data"
+          }
+        },
+        "guid" : "184A91AD24E5E736"
+      },
+      "visual" : {
+        "at" : { "x" : 88, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 600, "y" : 64 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogEventStart",
+      "name" : "Cancel",
+      "config" : {
+        "guid" : "184A91B513933B23",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.data.check" : "!in.data.check"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 88, "y" : 216 }
+      },
+      "connect" : { "id" : "f8", "to" : "f7" }
+    }, {
+      "id" : "f7",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 600, "y" : 216 }
+      }
+    } ]
+}

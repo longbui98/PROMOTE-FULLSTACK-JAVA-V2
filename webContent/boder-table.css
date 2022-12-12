@@ -1,0 +1,6 @@
+@charset "ISO-8859-1";
+
+.dt-employees {
+	border: 1px solid black;
+	border-collapse: collapse;
+}

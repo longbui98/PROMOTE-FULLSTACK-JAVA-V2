@@ -1,0 +1,246 @@
+{
+  "format" : "10.0.0",
+  "id" : "1847F9FB7BCEC612",
+  "config" : {
+    "data" : "project.Data"
+  },
+  "elements" : [ {
+      "id" : "f3",
+      "type" : "DialogCall",
+      "name" : "Promote Form",
+      "config" : {
+        "dialogId" : "project.CreateForm",
+        "startMethod" : "start(project.Data,com.quanglongit.entity.Profile,com.quanglongit.view.ViewEmployee)",
+        "call" : {
+          "params" : [
+            { "name" : "data", "type" : "project.Data" },
+            { "name" : "promote", "type" : "com.quanglongit.entity.Profile" },
+            { "name" : "viewEmployee", "type" : "com.quanglongit.view.ViewEmployee" }
+          ],
+          "map" : {
+            "param.data" : "in"
+          },
+          "code" : "in.isFeedback = true;"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 368, "y" : 240 }
+      },
+      "connect" : { "id" : "f6", "to" : "f5" }
+    }, {
+      "id" : "f5",
+      "type" : "UserTask",
+      "name" : "Manger Action",
+      "config" : {
+        "dialogId" : "project.CreateForm",
+        "startMethod" : "start(project.Data,com.quanglongit.entity.Profile,com.quanglongit.view.ViewEmployee)",
+        "output" : {
+          "map" : {
+            "out" : [
+              "in",
+              "result.data",
+              "result.data"
+            ]
+          }
+        },
+        "task" : {
+          "name" : "Manger Check Promote",
+          "description" : " Manager will check promote from creator then, he/she will decide to approve or reject",
+          "responsible" : {
+            "role" : "Manager"
+          }
+        },
+        "call" : {
+          "params" : [
+            { "name" : "data", "type" : "project.Data" },
+            { "name" : "promote", "type" : "com.quanglongit.entity.Profile" },
+            { "name" : "viewEmployee", "type" : "com.quanglongit.view.ViewEmployee" }
+          ],
+          "map" : {
+            "param.data" : "in"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 648, "y" : 240 }
+      },
+      "connect" : { "id" : "f12", "to" : "f11" }
+    }, {
+      "id" : "f10",
+      "type" : "UserTask",
+      "name" : "Task For Creator",
+      "config" : {
+        "dialogId" : "project.CreateForm",
+        "startMethod" : "start(project.Data,com.quanglongit.entity.Profile,com.quanglongit.view.ViewEmployee)",
+        "output" : {
+          "map" : {
+            "out" : "result.data"
+          }
+        },
+        "task" : {
+          "name" : "Creator Action From Manger",
+          "description" : "Creator will receiced feedback from manger then, he/she will approve to update or reject to create new one",
+          "responsible" : {
+            "role" : "Employee"
+          },
+          "priority" : "HIGH"
+        },
+        "call" : {
+          "params" : [
+            { "name" : "data", "type" : "project.Data" },
+            { "name" : "promote", "type" : "com.quanglongit.entity.Profile" },
+            { "name" : "viewEmployee", "type" : "com.quanglongit.view.ViewEmployee" }
+          ],
+          "map" : {
+            "param.data" : "in"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 1088, "y" : 576 },
+        "description" : "Manager's Feedback"
+      },
+      "connect" : { "id" : "f7", "to" : "f16" }
+    }, {
+      "id" : "f11",
+      "type" : "Alternative",
+      "name" : "Manager Feedback's Status",
+      "visual" : {
+        "at" : { "x" : 1088, "y" : 240 },
+        "labelOffset" : { "x" : 8, "y" : -24 }
+      },
+      "connect" : [
+        { "id" : "f1", "to" : "f19", "condition" : "in.check" },
+        { "id" : "f8", "to" : "f10" }
+      ]
+    }, {
+      "id" : "f16",
+      "type" : "Alternative",
+      "name" : "Creator's Status",
+      "visual" : {
+        "at" : { "x" : 648, "y" : 576 },
+        "labelOffset" : { "x" : -40, "y" : 16 }
+      },
+      "connect" : [
+        { "id" : "f18", "to" : "f15", "condition" : "in.check" },
+        { "id" : "f17", "to" : "f13" }
+      ]
+    }, {
+      "id" : "f15",
+      "type" : "TaskEnd",
+      "name" : "Creator Cancel Create Form",
+      "visual" : {
+        "at" : { "x" : 648, "y" : 752 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f19",
+      "type" : "UserTask",
+      "name" : "Manager's Approve",
+      "config" : {
+        "dialogId" : "project.CreatorActionUpdate",
+        "startMethod" : "start(project.Data)",
+        "output" : {
+          "map" : {
+            "out" : "result.data"
+          }
+        },
+        "task" : {
+          "name" : "Creator check again",
+          "description" : "In this task, approce has already approved the promote from Creator so he/she just okay to finish task",
+          "responsible" : {
+            "role" : "Employee"
+          }
+        },
+        "call" : {
+          "params" : [
+            { "name" : "data", "type" : "project.Data" }
+          ],
+          "map" : {
+            "param.data" : "in"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 1504, "y" : 240 },
+        "size" : { "width" : 156, "height" : 62 },
+        "description" : "Response Managers's Aprove or Reject to Creator's form"
+      },
+      "connect" : { "id" : "f21", "to" : "f2" }
+    }, {
+      "id" : "f2",
+      "type" : "TaskEnd",
+      "name" : "Creator Checked Feedback",
+      "visual" : {
+        "at" : { "x" : 1800, "y" : 240 },
+        "labelOffset" : { "x" : -7, "y" : 41 }
+      }
+    }, {
+      "id" : "f23",
+      "type" : "ProcessAnnotation",
+      "name" : "APPROVE",
+      "visual" : {
+        "at" : { "x" : 680, "y" : 503 },
+        "size" : { "width" : 64, "height" : 31 }
+      }
+    }, {
+      "id" : "f24",
+      "type" : "ProcessAnnotation",
+      "name" : "REJECT",
+      "visual" : {
+        "at" : { "x" : 680, "y" : 655 },
+        "size" : { "width" : 64, "height" : 31 }
+      }
+    }, {
+      "id" : "f25",
+      "type" : "ProcessAnnotation",
+      "name" : "APPROVE",
+      "visual" : {
+        "at" : { "x" : 1288, "y" : 223 },
+        "size" : { "width" : 64, "height" : 31 }
+      }
+    }, {
+      "id" : "f26",
+      "type" : "ProcessAnnotation",
+      "name" : "REJECT",
+      "visual" : {
+        "at" : { "x" : 1120, "y" : 415 },
+        "size" : { "width" : 64, "height" : 31 }
+      }
+    }, {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "Create Promote Form",
+      "config" : {
+        "callSignature" : "start",
+        "outLink" : "start.ivp",
+        "input" : {
+          "params" : [
+            { "name" : "promote", "type" : "com.quanglongit.entity.Profile" },
+            { "name" : "viewEmployee", "type" : "com.quanglongit.view.ViewEmployee" }
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 64, "y" : 240 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f13",
+      "type" : "Script",
+      "name" : "Update to Render Employee",
+      "config" : {
+        "output" : {
+          "code" : [
+            "in.managerCheck = false;",
+            "in.isFeedback = true;"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 648, "y" : 416 },
+        "description" : "Update value dataCheckManager when employee submit from Manager's feeedback"
+      },
+      "connect" : { "id" : "f14", "to" : "f3" }
+    } ]
+}

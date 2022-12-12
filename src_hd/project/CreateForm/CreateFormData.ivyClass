@@ -1,0 +1,14 @@
+CreateFormData #class
+project.CreateForm #namespace
+data project.Data #field
+data PERSISTENT #fieldModifier
+promote com.quanglongit.entity.Profile #field
+promote PERSISTENT #fieldModifier
+viewEmployee com.quanglongit.view.ViewEmployee #field
+viewEmployee PERSISTENT #fieldModifier
+gender String #field
+gender PERSISTENT #fieldModifier
+records java.util.List<Record> #field
+records PERSISTENT #fieldModifier
+id Integer #field
+id PERSISTENT #fieldModifier

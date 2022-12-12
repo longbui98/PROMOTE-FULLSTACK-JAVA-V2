@@ -1,0 +1,218 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:ic="http://ivyteam.ch/jsf/component" xmlns:p="http://primefaces.org/ui"	
+  xmlns:pe="http://primefaces.org/ui/extensions" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+  <ui:composition template="/layouts/basic-10.xhtml">
+    <ui:define name="title">CreateForm</ui:define>
+    <ui:define name="content">
+
+      <h1>PROMOTE FORM</h1>
+
+      <h:form id="form">
+        <p:growl id="messages" showDetail="true" />
+        <h:outputLabel value="Information" style="font-weight:bold"/>
+        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" 
+          columnClasses="ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4, ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4">
+          <!-- CREATOR -->
+   		  <p:outputLabel for="dataPromoteCreator" value="Creator"/>
+          <p:inputText id="dataPromoteCreator" value="#{data.data.creatorUser}" required="true" disabled="true"></p:inputText>
+   			
+   		  <!-- CREATE DATE -->
+          <p:outputLabel for="dataPromoteCreateDate" value="Create Date" />
+		  <p:calendar id="dataPromoteCreateDate" pattern="dd/MM/yyyy" value="#{data.data.createDate}" required="true" disabled="true">  
+			<f:convertDateTime pattern="dd/MM/yyyy" />
+		  </p:calendar>
+
+		  <!-- TARGET DATE -->
+          <p:outputLabel for="dataPromoteTargetDate" value="Target Date"/>
+          <p:calendar id="dataPromoteTargetDate" pattern="dd/MM/yyyy" value="#{data.data.targetDate}" required="true" showOn="button" 
+          		mindate="#{data.viewEmployee.minDate}" disabled="#{data.data.managerCheck eq true}"> 
+			<f:convertDateTime pattern="dd/MM/yyyy" />
+		  </p:calendar>
+			
+		  <!-- COMMENT -->
+		  <p:outputLabel for="dataPromoteComment" value="Comment" />
+          <p:inputTextarea id="dataPromoteComment" value="#{data.data.checkComment}" required="true"
+                  			rows="10" style=" width: 100%;" autoResize="false" readonly = "#{data.data.managerCheck eq true}"/>         
+        </p:panelGrid>
+
+        <p:toolbarGroup>
+        	<h4 style="font-weight:bold">Employees</h4>
+        	<!--NEW EMPLOYEE  -->
+        	<p:commandButton value="New" icon="pi pi-plus" actionListener="#{data.viewEmployee.openNew}"
+                   update=":dialogs:manage-employee-content" oncomplete="PF('manageEmployeeDialog').show()" process="@this"
+                   styleClass="ui-button-success" style="margin-right: .5rem" rendered="#{data.data.managerCheck eq false}">
+                   <p:resetInput target=":dialogs:manage-employee-content" />
+            </p:commandButton>
+            <!-- DELETE ONE OR ALL EMPLOYEE(S) -->
+            <!-- <p:commandButton id="delete-products-button" value="#{data.data.viewEmployee.deleteButtonMessage}"
+                    icon="pi pi-trash" actionListener="#{data.data.viewEmployee.deleteSelectedEmployees}"
+                    styleClass="ui-button-danger" disabled="#{!data.data.viewEmployee.hasSelectedEmployees()}" update="@this">
+                    <p:confirm header="Confirmation" message="Delete the selected products?"
+                        icon="pi pi-exclamation-triangle" />
+             </p:commandButton> -->
+        </p:toolbarGroup>       
+        <p:dataTable id="dt-employees" widgetVar="dtEmployees" var="employee" value="#{data.viewEmployee.employees}"
+            reflow="true" styleClass="employees-table boder-table" selection="#{data.viewEmployee.selectedEmployees}"
+            rowKey="#{employee.id}" paginator="true" rows="5" rowSelectMode="add" paginatorPosition="bottom">
+        
+            <!-- <p:ajax event="rowSelect" update=":form:delete-employees-button" />
+            <p:ajax event="rowUnselect" update=":form:delete-employees-button" />
+            <p:ajax event="rowSelectCheckbox" update=":form:delete-employees-button" />
+            <p:ajax event="rowUnselectCheckbox" update=":form:delete-employees-button" />
+            <p:ajax event="toggleSelect" update=":form:delete-employees-button" />
+        	
+        	<p:column selectionMode="multiple" exportable="false"></p:column> -->
+
+            <p:column headerText="Name" sortBy="#{employee.name}" filterBy="#{employee.name}">
+                <h:outputText value="#{employee.name}" />
+            </p:column>
+            <p:column headerText="Age" sortBy="#{employee.age}" filterBy="#{employee.age}">
+                <h:outputText value="#{employee.age}" />
+            </p:column>
+            <p:column headerText="Team" sortBy="#{employee.team}" filterBy="#{employee.team}">
+                <h:outputText value="#{employee.team}" />
+            </p:column>
+            <!-- ACTION -->
+            <p:column headerText="Action" exportable="false" rendered="#{data.data.managerCheck eq false}">
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-employee-content"
+                    oncomplete="PF('manageEmployeeDialog').show()"
+                    styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{employee}" target="#{data.viewEmployee.selectedEmployee}" />
+                    <p:resetInput target=":dialogs:manage-employee-content" />
+                </p:commandButton>
+                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                 process="@this" oncomplete="PF('deleteEmployeeDialog').show()">
+                    <f:setPropertyActionListener value="#{employee}" target="#{data.viewEmployee.selectedEmployee}" />
+                </p:commandButton>
+            </p:column>   
+        </p:dataTable>
+        
+        <!-- INCLUDING RECEIVED MANAGER'S FEEDBACK -->
+        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" 
+          columnClasses="ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4, ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4">       
+          <h:outputLabel for="dataFeedBack" value="Manager's Feedback" rendered="#{data.data.isFeedback eq false}"/>
+          <h:inputTextarea title="Feedback" id="dataFeedBack" readonly="true" required="true" value="#{data.data.feedback}"
+          	cols="70" rows="10" rendered="#{data.data.isFeedback eq false}"></h:inputTextarea>
+          	
+        </p:panelGrid>
+        <div class="command-btns">
+        	<p:commandButton id="submit" actionListener="#{logic.submitForm}" value="Submit"
+        	update="form" icon="pi pi-check" rendered="#{data.data.managerCheck eq false}" disabled="#{empty data.viewEmployee.employees}"/>
+        </div>
+        <div class="command-btns">
+        	<p:commandLink id="cancel" actionListener="#{logic.Cancel}" value="Cancel" rendered="#{data.data.isFeedback eq false}"/>
+        </div>
+      </h:form>
+      <br></br>
+      <!-- MANAGER'S FEEDBACK -->
+      <h:form rendered="#{data.data.managerCheck eq true}">
+      	<h4 style="font-weight:bold">Manager</h4>
+      	<div class="field col">
+     		<p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" 
+          columnClasses="ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4, ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4">
+          		<p:outputLabel for="dataManagerFeedback" value="Feedback"/>
+          			<p:inputTextarea id="dataManagerFeedback" value="#{data.viewEmployee.feedback}" required="true"
+          			rows="10" style=" width: 100%;" autoResize="false"></p:inputTextarea>
+        		<p:outputLabel for="#{priority}" value="Priority "/>
+            		<p:selectOneMenu id="priority" value="#{data.viewEmployee.priority}" style="ui-selectonemenu" required="true" >
+                		<f:selectItem itemLabel="Please select" itemValue="" noSelectionOption="true"/>
+                		<f:selectItems value="#{data.data.priorities}"/>
+            		</p:selectOneMenu>
+     		</p:panelGrid>
+          </div>
+          <div class="command-btns">
+          	<p:commandLink id="reject" actionListener="#{logic.ManagerReject}" value="Reject" />
+          	<p:commandButton id="proceed" actionListener="#{logic.ManagerApprove}" value="Approve" update="form" icon="pi pi-check" />
+        </div>
+      </h:form>
+      
+	  <!-- DIALOGS WHEN CREATING NEW EMPLOYEE -->
+	  <h:form id="dialogs">
+	  <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" 
+          columnClasses="ui-g-12 ui-md-9 ui-lg-4, ui-g-12 ui-md-9 ui-lg-4, ui-g-12 ui-md-9 ui-lg-4, ui-g-12 ui-md-9 ui-lg-4">
+      	<p:dialog header="Employee Information Form Details" showEffect="fade" modal="true" widgetVar="manageEmployeeDialog"
+            responsive="true">
+            <p:outputPanel id="manage-employee-content">
+                <p:outputPanel>
+                	<!-- NAME -->
+                    <div class="field">
+                        <p:outputLabel for="name">Name</p:outputLabel>
+                        <p:inputText id="name" value="#{data.viewEmployee.selectedEmployee.name}" required="true" />
+                    </div>
+                    <br></br>
+                    <!-- AGE -->
+                    <div class="field">
+                        <p:outputLabel for="age">Age</p:outputLabel>
+                        <p:inputNumber id="age" value="#{data.viewEmployee.selectedEmployee.age}" padControl="false"
+                        	minValue="0" maxValue="150" placeholder="Age must be from 0 - 150" required="true"/>
+                    </div>
+                    <br></br>
+                   	<!-- GENDER -->
+                    <div class="field">
+                        <p:outputLabel for="gender">Gender</p:outputLabel>
+                        <p:selectOneRadio id="gender" value="#{data.viewEmployee.gender}" required="true"
+                            layout="responsive" columns="3">
+                            <f:selectItems value="#{data.viewEmployee.genders}" var="gender" 
+                            		itemValue="#{gender}" itemLabel="#{gender.label}"  />                           
+                        </p:selectOneRadio>
+                    </div>
+                    <br></br>
+                     <div class="formgrid grid">
+                     	<!-- ACTIVE -->
+                    	<div class="field col">
+                        	<p:outputLabel for="active">Active</p:outputLabel>
+                        	<p:selectBooleanCheckbox id="active" value="#{data.viewEmployee.selectedEmployee.isAcive}" required="true"/>
+                    	</div>
+                    	<br></br>
+                    	<!--STARTING DATE-->
+                    	<div class="field col">
+                        	<p:outputLabel for="startingDate">Starting Date</p:outputLabel> 	
+                        	<p:calendar id="startingDate" pattern="dd/MM/yyyy" value="#{data.viewEmployee.selectedEmployee.startingDate}" required="true"> 
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+		  					</p:calendar>
+                    	</div>
+                    	<br></br>
+                    	<!--TEAM -->
+                 		<div class="field col">					
+        					<p:outputLabel for="team" value="Team " />
+            					<p:selectOneMenu id="team" value="#{data.viewEmployee.selectedEmployee.team}"  required="true">
+                					<f:selectItem itemLabel="Select Team" itemValue="" noSelectionOption="true"/>
+                					<f:selectItems value="#{data.viewEmployee.teams}"/>
+            					</p:selectOneMenu>
+                    	</div>
+                     </div>
+                </p:outputPanel>
+            </p:outputPanel>
+            <f:facet name="footer">
+                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{logic.saveEmployee}"
+                    update="manage-employee-content form" oncomplete="PF('manageEmployeeDialog').hide()"/>
+                    
+                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageEmployeeDialog').hide()"
+                    class="ui-button-secondary" type="button" /> 
+            </f:facet>
+        </p:dialog>
+      </p:panelGrid>    
+        
+
+        <p:confirmDialog widgetVar="deleteEmployeeDialog" showEffect="fade" width="300"
+            message="Delete the employee?" header="Confirm" severity="warn">
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{logic.deleteEmployee}" process="@this"
+                update="manage-employee-content form" oncomplete="PF('deleteEmployeeDialog').hide()" />
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                onclick="PF('deleteEmployeeDialog').hide()" />
+        </p:confirmDialog>
+
+        <p:confirmDialog global="true" showEffect="fade" width="300">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                icon="pi pi-times" />
+        </p:confirmDialog>
+    </h:form>
+	  
+    </ui:define>
+  </ui:composition>
+</h:body>
+
+</html>

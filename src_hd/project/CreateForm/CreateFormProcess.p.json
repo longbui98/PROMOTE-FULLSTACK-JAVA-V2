@@ -1,0 +1,637 @@
+{
+  "format" : "10.0.0",
+  "id" : "184844F822DB0054",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "project.CreateForm.CreateFormData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "Create Form",
+      "config" : {
+        "callSignature" : "start",
+        "result" : {
+          "params" : [
+            { "name" : "data", "type" : "project.Data" },
+            { "name" : "promote", "type" : "com.quanglongit.entity.Profile" },
+            { "name" : "viewEmployee", "type" : "com.quanglongit.view.ViewEmployee" }
+          ],
+          "map" : {
+            "result.data" : "in.data",
+            "result.promote" : "in.promote",
+            "result.viewEmployee" : "in.viewEmployee"
+          }
+        },
+        "input" : {
+          "params" : [
+            { "name" : "data", "type" : "project.Data" },
+            { "name" : "promote", "type" : "com.quanglongit.entity.Profile" },
+            { "name" : "viewEmployee", "type" : "com.quanglongit.view.ViewEmployee" }
+          ],
+          "map" : {
+            "out.data" : "param.data",
+            "out.promote" : "param.promote",
+            "out.viewEmployee" : "param.viewEmployee"
+          }
+        },
+        "guid" : "184844F822DF421F"
+      },
+      "visual" : {
+        "at" : { "x" : 104, "y" : 248 }
+      },
+      "connect" : { "id" : "f15", "to" : "f36" }
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 1328, "y" : 248 }
+      }
+    }, {
+      "id" : "f10",
+      "type" : "HtmlDialogEventStart",
+      "name" : "ManagerApprove",
+      "config" : {
+        "guid" : "184BC4F8EEEC2BFB",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.data.check" : "!in.data.check"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 480 },
+        "labelOffset" : { "x" : 11, "y" : 35 }
+      },
+      "connect" : { "id" : "f23", "to" : "f22" }
+    }, {
+      "id" : "f11",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 1328, "y" : 480 }
+      }
+    }, {
+      "id" : "f13",
+      "type" : "HtmlDialogEventStart",
+      "name" : "ManagerReject",
+      "config" : {
+        "guid" : "184BC4F8EEEF0A0B"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 624 }
+      },
+      "connect" : { "id" : "f24", "to" : "f5" }
+    }, {
+      "id" : "f14",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 1328, "y" : 624 }
+      }
+    }, {
+      "id" : "f8",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "saveEmployee() and updateEmployee()",
+      "config" : {
+        "callSignature" : "saveEmployee",
+        "guid" : "184C1631B2225D31"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 800 }
+      },
+      "connect" : { "id" : "f21", "to" : "f20" }
+    }, {
+      "id" : "f9",
+      "type" : "Database",
+      "name" : "Save Employee",
+      "config" : {
+        "query" : {
+          "kind" : "write",
+          "table" : "EMPLOYEE",
+          "fields" : {
+            "NAME" : "in.viewEmployee.selectedEmployee.name",
+            "GENDER" : "in.gender",
+            "TEAM" : "in.viewEmployee.selectedEmployee.team",
+            "ISACTIVE" : "(in.viewEmployee.selectedEmployee.isAcive == true) ? 1 : 0",
+            "STARTINGDATE" : "in.viewEmployee.selectedEmployee.startingDate",
+            "AGE" : "in.viewEmployee.selectedEmployee.age",
+            "PROFILEID" : "in.id"
+          }
+        },
+        "dbUrl" : "ProConnection"
+      },
+      "visual" : {
+        "at" : { "x" : 992, "y" : 800 }
+      },
+      "connect" : { "id" : "f7", "to" : "f43", "via" : [ { "x" : 1168, "y" : 800 }, { "x" : 1168, "y" : 960 } ] }
+    }, {
+      "id" : "f22",
+      "type" : "Script",
+      "name" : "Manager Approve",
+      "config" : {
+        "output" : {
+          "code" : [
+            "in.data.managerCheck = false;",
+            "in.data.feedback = in.viewEmployee.feedback;"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 456, "y" : 480 }
+      },
+      "connect" : { "id" : "f16", "to" : "f11" }
+    }, {
+      "id" : "f5",
+      "type" : "Script",
+      "name" : "Manager Reject",
+      "config" : {
+        "output" : {
+          "code" : [
+            "in.data.managerCheck = false;",
+            "in.data.feedback = in.viewEmployee.feedback;",
+            "//Render feedback when receiving response from Manager",
+            "in.data.isFeedback = false;"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 456, "y" : 624 }
+      },
+      "connect" : { "id" : "f18", "to" : "f14" }
+    }, {
+      "id" : "f20",
+      "type" : "Script",
+      "name" : "Get Gender",
+      "config" : {
+        "output" : {
+          "code" : "in.gender = in.viewEmployee.gender;"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 456, "y" : 800 }
+      },
+      "connect" : { "id" : "f28", "to" : "f17" }
+    }, {
+      "id" : "f30",
+      "type" : "Database",
+      "name" : "Get Employees",
+      "config" : {
+        "query" : {
+          "kind" : "read",
+          "table" : "EMPLOYEE",
+          "condition" : "PROFILEID = <%=in.id%>"
+        },
+        "output" : {
+          "code" : [
+            "import com.quanglongit.action.Gender;",
+            "import com.quanglongit.entity.Employee;",
+            "import ch.ivyteam.ivy.environment.Ivy;",
+            "",
+            "List<Record> records = recordset.toList();",
+            "",
+            "Employee em;",
+            "",
+            "in.viewEmployee.employees = null;",
+            "",
+            "for(int i = 0; i < records.size(); i++){",
+            "",
+            "  Record record = records.get(i);",
+            "  ",
+            "  Integer id = record.getField(\"PROFILEID\").toNumber();",
+            "  if(in.id == id){",
+            "    Integer id = record.getField(\"ID\").toNumber();",
+            "    String name = record.getField(\"NAME\").toString();",
+            "    Integer age = record.getField(\"AGE\").toNumber();",
+            "    Gender gender = Gender.valueOf(record.getField(\"GENDER\").toString());",
+            "    Boolean isActive = record.getField(\"ISACTIVE\").toBoolean();",
+            "    DateTime startingDate = record.getField(\"STARTINGDATE\").toDateTime();",
+            "    String team = record.getField(\"TEAM\").toString();",
+            "    Integer profileId = in.id;",
+            "  ",
+            "    em = new com.quanglongit.entity.Employee(id, name, age, gender, isActive, startingDate, team, profileId);",
+            "    in.viewEmployee.employees.add(em);",
+            "  }",
+            "}"
+          ]
+        },
+        "dbUrl" : "ProConnection"
+      },
+      "visual" : {
+        "at" : { "x" : 776, "y" : 248 },
+        "description" : "Get Employees if have already exist"
+      },
+      "connect" : { "id" : "f26", "to" : "f53" }
+    }, {
+      "id" : "f36",
+      "type" : "Script",
+      "name" : "Init ViewEmployee",
+      "config" : {
+        "output" : {
+          "code" : [
+            "if(in.data.managerCheck == false){",
+            "  in.viewEmployee.init();",
+            "  //in.promote;",
+            "  //Initialize priorities for Manager's Feedback",
+            "  in.data.priorities = in.viewEmployee.priorities;",
+            "  ",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 272, "y" : 248 }
+      },
+      "connect" : { "id" : "f58", "to" : "f57" }
+    }, {
+      "id" : "f38",
+      "type" : "Database",
+      "name" : "Update Employee",
+      "config" : {
+        "query" : {
+          "kind" : "update",
+          "table" : "EMPLOYEE",
+          "fields" : {
+            "GENDER" : "in.gender",
+            "TEAM" : "in.viewEmployee.selectedEmployee.team",
+            "ISACTIVE" : "(in.viewEmployee.selectedEmployee.isAcive == true) ? 1 : 0",
+            "STARTINGDATE" : "in.viewEmployee.selectedEmployee.startingDate",
+            "NAME" : "in.viewEmployee.selectedEmployee.name",
+            "AGE" : "in.viewEmployee.selectedEmployee.age"
+          },
+          "condition" : "ID = <%=in.viewEmployee.selectedEmployee.id%>"
+        },
+        "dbUrl" : "ProConnection"
+      },
+      "visual" : {
+        "at" : { "x" : 1000, "y" : 960 }
+      },
+      "connect" : { "id" : "f44", "to" : "f43" }
+    }, {
+      "id" : "f39",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 1640, "y" : 960 }
+      }
+    }, {
+      "id" : "f29",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "deleteEmployee()",
+      "config" : {
+        "callSignature" : "deleteEmployee",
+        "guid" : "184CD78CD1426B99"
+      },
+      "visual" : {
+        "at" : { "x" : 80, "y" : 1112 }
+      },
+      "connect" : { "id" : "f27", "to" : "f33" }
+    }, {
+      "id" : "f33",
+      "type" : "Database",
+      "name" : "Delete Employee",
+      "config" : {
+        "query" : {
+          "kind" : "delete",
+          "table" : "EMPLOYEE",
+          "condition" : "ID = <%=in.viewEmployee.selectedEmployee.id%>"
+        },
+        "dbUrl" : "ProConnection"
+      },
+      "visual" : {
+        "at" : { "x" : 1000, "y" : 1112 }
+      },
+      "connect" : { "id" : "f40", "to" : "f43", "via" : [ { "x" : 1168, "y" : 1112 }, { "x" : 1168, "y" : 960 } ] }
+    }, {
+      "id" : "f43",
+      "type" : "Database",
+      "name" : "Get Employees After Save, Update, Delete",
+      "config" : {
+        "query" : {
+          "kind" : "read",
+          "table" : "EMPLOYEE",
+          "condition" : "PROFILEID = <%=in.id%>"
+        },
+        "output" : {
+          "code" : [
+            "import com.quanglongit.action.Gender;",
+            "import com.quanglongit.entity.Employee;",
+            "",
+            "List<Record> records = recordset.toList();",
+            "",
+            "Employee em;",
+            "",
+            "in.viewEmployee.employees = null;",
+            "",
+            "for(int i = 0; i < records.size(); i++){",
+            "  ",
+            "  Record record = records.get(i);",
+            "  ",
+            "  Integer id = record.getField(\"ID\").toNumber();",
+            "  String name = record.getField(\"NAME\").toString();",
+            "  Integer age = record.getField(\"AGE\").toNumber();",
+            "  Gender gender = Gender.valueOf(record.getField(\"GENDER\").toString());",
+            "  Boolean isActive = record.getField(\"ISACTIVE\").toBoolean();",
+            "  DateTime startingDate = record.getField(\"STARTINGDATE\").toDateTime();",
+            "  String team = record.getField(\"TEAM\").toString();",
+            "  Integer profileId = in.id;",
+            "  ",
+            "  em = new com.quanglongit.entity.Employee(id, name, age, gender, isActive, startingDate, team, profileId);",
+            "  ",
+            "  //ivy.log.debug(\"EM \" + em);",
+            "  ",
+            "  in.viewEmployee.employees.add(em);",
+            "  ivy.log.debug(\"Employees size list : \" + in.viewEmployee.employees);",
+            "}"
+          ]
+        },
+        "dbUrl" : "ProConnection"
+      },
+      "visual" : {
+        "at" : { "x" : 1416, "y" : 960 },
+        "description" : "When we save employee, we will get to the new employee that has been added."
+      },
+      "connect" : { "id" : "f41", "to" : "f39" }
+    }, {
+      "id" : "f17",
+      "type" : "Alternative",
+      "name" : "Check Save or Update and Update User Session",
+      "visual" : {
+        "at" : { "x" : 680, "y" : 800 },
+        "labelOffset" : { "x" : 32, "y" : -24 },
+        "description" : "Check Save or Update when User create form and also to update Promote table when new User login"
+      },
+      "connect" : [
+        { "id" : "f6", "to" : "f9", "condition" : "in.viewEmployee.employees.isEmpty() || !in.viewEmployee.employees.contains(in.viewEmployee.selectedEmployee)" },
+        { "id" : "f34", "to" : "f38", "via" : [ { "x" : 680, "y" : 960 } ], "condition" : "!in.viewEmployee.employees.isEmpty() || in.viewEmployee.employees.contains(in.viewEmployee.selectedEmployee)" }
+      ]
+    }, {
+      "id" : "f25",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "submitForm()",
+      "config" : {
+        "callSignature" : "submitForm",
+        "guid" : "184D29758F1CAC22"
+      },
+      "visual" : {
+        "at" : { "x" : 1456, "y" : 536 }
+      },
+      "connect" : { "id" : "f51", "to" : "f50" }
+    }, {
+      "id" : "f32",
+      "type" : "Database",
+      "name" : "Save Promote Form",
+      "config" : {
+        "query" : {
+          "kind" : "write",
+          "table" : "PROMOTE",
+          "fields" : {
+            "CREATOR" : "in.data.creatorUser",
+            "CREATEDATE" : "in.data.createDate",
+            "TARGETDATE" : "in.data.targetDate",
+            "COMMENTS" : "in.data.checkComment"
+          }
+        },
+        "dbUrl" : "ProConnection"
+      },
+      "visual" : {
+        "at" : { "x" : 2384, "y" : 536 }
+      },
+      "connect" : { "id" : "f59", "to" : "f46" }
+    }, {
+      "id" : "f35",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 3024, "y" : 536 }
+      }
+    }, {
+      "id" : "f45",
+      "type" : "Alternative",
+      "name" : "Check Save or Update Form",
+      "visual" : {
+        "at" : { "x" : 2192, "y" : 536 },
+        "labelOffset" : { "x" : 16, "y" : -16 }
+      },
+      "connect" : [
+        { "id" : "f37", "to" : "f32", "condition" : "in.promote.creator.equalsIgnoreCase(\"\")" },
+        { "id" : "f47", "to" : "f49", "condition" : "!in.promote.creator.isEmpty()" }
+      ]
+    }, {
+      "id" : "f50",
+      "type" : "Script",
+      "name" : "Manager's Tasks",
+      "config" : {
+        "output" : {
+          "code" : [
+            "in.viewEmployee.priorities;",
+            "in.data.check = false;",
+            "in.viewEmployee.feedback = \"\";",
+            "//Use to render feedback and disable feature of employee when the dialog comes to Manager",
+            "in.data.managerCheck = true;"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 1704, "y" : 536 }
+      },
+      "connect" : { "id" : "f54", "to" : "f48" }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogEventStart",
+      "name" : "Cancel",
+      "config" : {
+        "guid" : "184E142CD7FDD1CE",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.data.check" : "!in.data.check"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 352 }
+      },
+      "connect" : { "id" : "f12", "to" : "f4" }
+    }, {
+      "id" : "f4",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 1328, "y" : 352 }
+      }
+    }, {
+      "id" : "f53",
+      "type" : "Script",
+      "name" : "Verify New Creator Or Not",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import ch.ivyteam.ivy.environment.Ivy;",
+            "",
+            "if(in.data.managerCheck == false){",
+            "  Date currentDate = new Date();",
+            "  String user = Ivy.security().sessions().current().getSessionUserName();",
+            "  ",
+            "  if(in.data.managerCheck == false){",
+            "    in.data.creatorUser = user;",
+            "  }",
+            "  in.data.createDate = currentDate;",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 1040, "y" : 248 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    }, {
+      "id" : "f49",
+      "type" : "Database",
+      "name" : "Update Promote Form",
+      "config" : {
+        "query" : {
+          "kind" : "update",
+          "table" : "PROMOTE",
+          "fields" : {
+            "COMMENTS" : "in.data.checkComment",
+            "TARGETDATE" : "in.data.targetDate"
+          },
+          "condition" : "CREATEDATE = <%=in.data.createDate%>"
+        },
+        "dbUrl" : "ProConnection"
+      },
+      "visual" : {
+        "at" : { "x" : 2192, "y" : 776 }
+      },
+      "connect" : { "id" : "f56", "to" : "f55" }
+    }, {
+      "id" : "f48",
+      "type" : "Database",
+      "name" : "Get Promote",
+      "config" : {
+        "query" : {
+          "kind" : "read",
+          "table" : "PROMOTE",
+          "condition" : "CREATEDATE = <%=in.data.createDate%>"
+        },
+        "output" : {
+          "code" : [
+            "List<Record> records = recordset.toList();",
+            "int size = records.size();",
+            "",
+            "if(size == 0){",
+            "  in.promote.creator = \"\";",
+            "}else{",
+            "  for(int i = 0; i < size; i++){",
+            "    String creator = records.get(i).getField(\"CREATOR\").toString();",
+            "    if(in.data.creatorUser.equalsIgnoreCase(creator)){",
+            "      in.promote.creator = creator;",
+            "      in.data.creatorUser = creator;",
+            "      ivy.log.debug(\"CREATOR: \" + in.data.creatorUser);",
+            "      break;",
+            "    }",
+            "  }",
+            "}",
+            "",
+            "ivy.log.debug(\"CHECK PROMOTE IS NOT EXIST: \" + in.promote.creator.equalsIgnoreCase(\"\"));"
+          ]
+        },
+        "dbUrl" : "ProConnection"
+      },
+      "visual" : {
+        "at" : { "x" : 1976, "y" : 536 },
+        "description" : "Get Promote to compare whether promote form has been created new or update"
+      },
+      "connect" : { "id" : "f19", "to" : "f45" }
+    }, {
+      "id" : "f55",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 2192, "y" : 952 }
+      }
+    }, {
+      "id" : "f57",
+      "type" : "Database",
+      "name" : "Get Promote",
+      "config" : {
+        "query" : {
+          "kind" : "read",
+          "table" : "PROMOTE"
+        },
+        "output" : {
+          "code" : [
+            "import ch.ivyteam.ivy.environment.Ivy;",
+            "",
+            "List<Record> records = recordset.toList();",
+            "in.records = records;",
+            "",
+            "String user = Ivy.security().sessions().current().getSessionUserName();",
+            "",
+            "int size = records.size();",
+            "if(size > 0){",
+            "  for(int i = 0; i < size; i++){",
+            "    String creator = records.get(i).getField(\"CREATOR\").toString();",
+            "    if(!user.equalsIgnoreCase(\"Admin\")){",
+            "      if(user.equalsIgnoreCase(creator)){",
+            "        in.id = records.get(i).getField(\"ID\").toNumber();",
+            "        break;",
+            "      }",
+            "    }else{",
+            "      user = in.data.creatorUser;",
+            "      ivy.log.debug(\"Promote: \" + user);",
+            "      if(user.equalsIgnoreCase(creator)){",
+            "        in.id = records.get(i).getField(\"ID\").toNumber();",
+            "        break;",
+            "      }",
+            "    }",
+            "  }",
+            "}"
+          ]
+        },
+        "dbUrl" : "ProConnection"
+      },
+      "visual" : {
+        "at" : { "x" : 512, "y" : 248 }
+      },
+      "connect" : { "id" : "f31", "to" : "f30" }
+    }, {
+      "id" : "f46",
+      "type" : "Database",
+      "name" : "Get Promote's ID",
+      "config" : {
+        "query" : {
+          "kind" : "read",
+          "table" : "PROMOTE"
+        },
+        "output" : {
+          "code" : [
+            "List<Record> records = recordset.toList();",
+            "int size = records.size();",
+            "",
+            "in.id = records.get(size-1).getField(\"ID\").toNumber();"
+          ]
+        },
+        "dbUrl" : "ProConnection"
+      },
+      "visual" : {
+        "at" : { "x" : 2624, "y" : 536 }
+      },
+      "connect" : { "id" : "f60", "to" : "f52" }
+    }, {
+      "id" : "f52",
+      "type" : "Database",
+      "name" : "Get and Update Employees's ProfileID",
+      "config" : {
+        "query" : {
+          "kind" : "update",
+          "table" : "EMPLOYEE",
+          "fields" : {
+            "PROFILEID" : "in.id"
+          },
+          "condition" : "PROFILEID  IS NULL"
+        },
+        "dbUrl" : "ProConnection"
+      },
+      "visual" : {
+        "at" : { "x" : 2832, "y" : 536 }
+      },
+      "connect" : { "id" : "f42", "to" : "f35" }
+    } ]
+}

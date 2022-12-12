@@ -1,0 +1,22 @@
+Data #class
+project #namespace
+check Boolean #field
+check PERSISTENT #fieldModifier
+managerCheck Boolean #field
+managerCheck PERSISTENT #fieldModifier
+isFeedback Boolean #field
+isFeedback PERSISTENT #fieldModifier
+checkCreatorTemp String #field
+checkCreatorTemp PERSISTENT #fieldModifier
+priorities java.util.List<com.quanglongit.action.Priority> #field
+priorities PERSISTENT #fieldModifier
+checkComment String #field
+checkComment PERSISTENT #fieldModifier
+feedback String #field
+feedback PERSISTENT #fieldModifier
+targetDate java.util.Date #field
+targetDate PERSISTENT #fieldModifier
+creatorUser String #field
+creatorUser PERSISTENT #fieldModifier
+createDate java.util.Date #field
+createDate PERSISTENT #fieldModifier

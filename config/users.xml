@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<userConfig>
+    <user>
+        <username>Admin</username>
+        <password>123</password>
+        <role>Manager</role>
+    </user>
+    <user>
+        <username>Vi</username>
+        <password>123</password>
+        <role>Employee</role>
+    </user>
+    <user>
+        <username>Long</username>
+        <password>123</password>
+        <role>Employee</role>
+    </user>
+    <user>
+        <username>Anh</username>
+        <password>123</password>
+        <role>Employee</role>
+    </user>
+</userConfig>
