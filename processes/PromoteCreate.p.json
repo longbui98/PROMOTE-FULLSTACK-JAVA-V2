@@ -34,6 +34,9 @@
       "config" : {
         "dialogId" : "project.CreateForm",
         "startMethod" : "start(project.Data,com.quanglongit.entity.Profile,com.quanglongit.view.ViewEmployee)",
+        "case" : {
+          "name" : "Create Or Update New Form"
+        },
         "output" : {
           "map" : {
             "out" : [
@@ -44,7 +47,7 @@
           }
         },
         "task" : {
-          "name" : "Manger Check Promote",
+          "name" : "<%=ivy.cms.co(\"/TaskName/ManagerAction\")%>",
           "description" : " Manager will check promote from creator then, he/she will decide to approve or reject",
           "responsible" : {
             "role" : "Manager"
@@ -72,13 +75,16 @@
       "config" : {
         "dialogId" : "project.CreateForm",
         "startMethod" : "start(project.Data,com.quanglongit.entity.Profile,com.quanglongit.view.ViewEmployee)",
+        "case" : {
+          "name" : "Employee Check Form's Reject"
+        },
         "output" : {
           "map" : {
             "out" : "result.data"
           }
         },
         "task" : {
-          "name" : "Creator Action From Manger",
+          "name" : "<%=ivy.cms.co(\"/TaskName/CreatorAction\")%>",
           "description" : "Creator will receiced feedback from manger then, he/she will approve to update or reject to create new one",
           "responsible" : {
             "role" : "Employee"
@@ -140,13 +146,16 @@
       "config" : {
         "dialogId" : "project.CreatorActionUpdate",
         "startMethod" : "start(project.Data)",
+        "case" : {
+          "name" : "Employee Check Form's Approve"
+        },
         "output" : {
           "map" : {
             "out" : "result.data"
           }
         },
         "task" : {
-          "name" : "Creator check again",
+          "name" : "<%=ivy.cms.co(\"/TaskName/ManagerApprove\")%>",
           "description" : "In this task, approce has already approved the promote from Creator so he/she just okay to finish task",
           "responsible" : {
             "role" : "Employee"

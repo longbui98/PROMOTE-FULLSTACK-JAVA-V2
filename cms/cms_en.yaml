@@ -4,6 +4,7 @@ labelsempl:
   Age: Age
   Confirm: Confirm
   ConfirmDelete: Delete the employee
+  EmployeeDetail: Employee Information Form Details
   Employees: Employees
   Gender: Gender
   Information: Information
@@ -31,3 +32,8 @@ prolabel:
   CreateDate: Create Date
   Creator: Creator
   TargetDate: Target Date
+TaskName:
+  CreatorAction: Creator Action From Manger
+  ManagerAction: Manger Check Promote
+  ManagerApprove: Manager's Approve
+  PromoteForm: Promote Form

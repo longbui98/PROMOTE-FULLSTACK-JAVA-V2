@@ -4,6 +4,7 @@ labelsempl:
   Age: "Das Alter\r\n"
   Confirm: Bestätigen
   ConfirmDelete: Löschen Sie den Mitarbeiter
+  EmployeeDetail: Details zum Mitarbeiterinformationsformular
   Employees: Angestellte
   Gender: Gender
   Information: Information
@@ -31,3 +32,8 @@ prolabel:
   CreateDate: Erstellungsdatum
   Creator: Schöpferin
   TargetDate: Zieltermin
+TaskName:
+  CreatorAction: Aktion des Erstellers vom Manager
+  ManagerAction: Manager-Check fördern
+  ManagerApprove: Genehmigung des Managers
+  PromoteForm: Werbeformular
