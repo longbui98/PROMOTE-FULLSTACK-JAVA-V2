@@ -6,7 +6,12 @@
   <ui:composition template="/layouts/basic-10.xhtml">
     <ui:define name="title">CreateForm</ui:define>
     <ui:define name="content">
-
+	<script>
+		window.processSteps = "Create Promote, Approve Promote";
+		window.currentProcessStep = "#{data.data.step}";
+		window.isShowAllSteps = true;
+		window.processChainShape = "CIRCLE";
+	</script>
       <h:outputLabel value="#{ivy.cm.co('/labelsempl/Promote')}" style="font-weight:bold"/>
       <br></br>
 		
@@ -20,7 +25,7 @@
           <p:inputText id="dataPromoteCreator" value="#{data.data.creatorUser}" required="true" disabled="true"></p:inputText>
    			
    		  <!-- CREATE DATE -->
-          <p:outputLabel for="dataPromoteCreateDate" value="#{ivy.cm.co('/prolabel/CreateDate')}" />
+          <p:outputLabel for="dataPromoteCreateDate" value="#{ivy.cm.co('/prolabel/CreateDate')}"/>
 		  <p:calendar id="dataPromoteCreateDate" pattern="dd/MM/yyyy" value="#{data.data.createDate}" required="true" disabled="true">  
 			<f:convertDateTime pattern="dd/MM/yyyy" />
 		  </p:calendar>

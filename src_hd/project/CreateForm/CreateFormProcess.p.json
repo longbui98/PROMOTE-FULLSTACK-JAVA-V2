@@ -233,7 +233,6 @@
             "  //in.promote;",
             "  //Initialize priorities for Manager's Feedback",
             "  in.data.priorities = in.viewEmployee.priorities;",
-            "  ",
             "}"
           ]
         }

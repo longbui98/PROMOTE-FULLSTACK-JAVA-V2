@@ -20,7 +20,10 @@
           "map" : {
             "param.data" : "in"
           },
-          "code" : "in.isFeedback = true;"
+          "code" : [
+            "in.isFeedback = true;",
+            "in.step = 0;"
+          ]
         }
       },
       "visual" : {
@@ -34,6 +37,21 @@
       "config" : {
         "dialogId" : "project.CreateForm",
         "startMethod" : "start(project.Data,com.quanglongit.entity.Profile,com.quanglongit.view.ViewEmployee)",
+        "call" : {
+          "params" : [
+            { "name" : "data", "type" : "project.Data" },
+            { "name" : "promote", "type" : "com.quanglongit.entity.Profile" },
+            { "name" : "viewEmployee", "type" : "com.quanglongit.view.ViewEmployee" }
+          ],
+          "map" : {
+            "param.data" : "in"
+          },
+          "code" : [
+            "++in.step;",
+            "",
+            "ivy.log.debug(\"Manager: \" + in.step);"
+          ]
+        },
         "case" : {
           "name" : "Create Or Update New Form"
         },
@@ -51,16 +69,6 @@
           "description" : " Manager will check promote from creator then, he/she will decide to approve or reject",
           "responsible" : {
             "role" : "Manager"
-          }
-        },
-        "call" : {
-          "params" : [
-            { "name" : "data", "type" : "project.Data" },
-            { "name" : "promote", "type" : "com.quanglongit.entity.Profile" },
-            { "name" : "viewEmployee", "type" : "com.quanglongit.view.ViewEmployee" }
-          ],
-          "map" : {
-            "param.data" : "in"
           }
         }
       },

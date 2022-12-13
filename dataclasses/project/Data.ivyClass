@@ -20,3 +20,5 @@ creatorUser String #field
 creatorUser PERSISTENT #fieldModifier
 createDate java.util.Date #field
 createDate PERSISTENT #fieldModifier
+step Integer #field
+step PERSISTENT #fieldModifier
