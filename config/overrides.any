@@ -1,1 +1,6 @@
-*
+{
+  /PROCESS {
+    /Functional-Processes.LoadSubMenuItems "Functional Processes/LoadSubMenuItemsOverride"
+  }
+  /HTML_DIALOG *
+}

@@ -219,7 +219,7 @@
     }, {
       "id" : "f0",
       "type" : "RequestStart",
-      "name" : "Create Promote Form",
+      "name" : "CreatePromoteForm.ivp",
       "config" : {
         "callSignature" : "start",
         "outLink" : "start.ivp",
