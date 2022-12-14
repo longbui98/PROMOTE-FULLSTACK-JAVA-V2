@@ -269,7 +269,7 @@
       "id" : "f39",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 1640, "y" : 960 }
+        "at" : { "x" : 1824, "y" : 960 }
       }
     }, {
       "id" : "f29",
@@ -348,7 +348,7 @@
         "at" : { "x" : 1416, "y" : 960 },
         "description" : "When we save employee, we will get to the new employee that has been added."
       },
-      "connect" : { "id" : "f41", "to" : "f39" }
+      "connect" : { "id" : "f62", "to" : "f61" }
     }, {
       "id" : "f17",
       "type" : "Alternative",
@@ -632,5 +632,23 @@
         "at" : { "x" : 2832, "y" : 536 }
       },
       "connect" : { "id" : "f42", "to" : "f35" }
+    }, {
+      "id" : "f61",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import javax.faces.context.FacesContext;",
+            "import javax.faces.application.FacesMessage;",
+            "",
+            "FacesContext.getCurrentInstance().",
+            "                addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, \"Info Message\", \"Sucessfully\"));"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 1624, "y" : 960 }
+      },
+      "connect" : { "id" : "f41", "to" : "f39" }
     } ]
 }
