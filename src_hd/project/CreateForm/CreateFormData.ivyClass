@@ -12,3 +12,5 @@ records java.util.List<Record> #field
 records PERSISTENT #fieldModifier
 id Integer #field
 id PERSISTENT #fieldModifier
+statusManipulateEmployee String #field
+statusManipulateEmployee PERSISTENT #fieldModifier

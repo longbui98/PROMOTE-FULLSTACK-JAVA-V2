@@ -118,6 +118,9 @@
             "PROFILEID" : "in.id"
           }
         },
+        "output" : {
+          "code" : "in.statusManipulateEmployee = \"Save\";"
+        },
         "dbUrl" : "ProConnection"
       },
       "visual" : {
@@ -259,6 +262,9 @@
           },
           "condition" : "ID = <%=in.viewEmployee.selectedEmployee.id%>"
         },
+        "output" : {
+          "code" : "in.statusManipulateEmployee = \"Update\";"
+        },
         "dbUrl" : "ProConnection"
       },
       "visual" : {
@@ -292,6 +298,9 @@
           "kind" : "delete",
           "table" : "EMPLOYEE",
           "condition" : "ID = <%=in.viewEmployee.selectedEmployee.id%>"
+        },
+        "output" : {
+          "code" : "in.statusManipulateEmployee = \"Delete\";"
         },
         "dbUrl" : "ProConnection"
       },
@@ -635,19 +644,22 @@
     }, {
       "id" : "f61",
       "type" : "Script",
+      "name" : "Popup Notification",
       "config" : {
         "output" : {
           "code" : [
             "import javax.faces.context.FacesContext;",
             "import javax.faces.application.FacesMessage;",
             "",
+            "",
             "FacesContext.getCurrentInstance().",
-            "                addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, \"Info Message\", \"Sucessfully\"));"
+            "                addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, \"Info Message\", in.statusManipulateEmployee + \" successully\"));"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 1624, "y" : 960 }
+        "at" : { "x" : 1624, "y" : 960 },
+        "description" : "Popup when manipulate in employee list"
       },
       "connect" : { "id" : "f41", "to" : "f39" }
     } ]

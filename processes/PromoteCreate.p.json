@@ -95,7 +95,7 @@
           "name" : "<%=ivy.cms.co(\"/TaskName/CreatorAction\")%>",
           "description" : "Creator will receiced feedback from manger then, he/she will approve to update or reject to create new one",
           "responsible" : {
-            "role" : "Employee"
+            "role" : "CREATOR"
           },
           "priority" : "HIGH"
         },
