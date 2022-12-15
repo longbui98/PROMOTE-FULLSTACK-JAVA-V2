@@ -77,6 +77,7 @@ public class ViewEmployee {
 
 	public void openNew() {
 		selectedEmployee = new Employee();
+		selectedEmployee.setIsAcive(true);
 	}
 
 	public Boolean getIsDelete() {
