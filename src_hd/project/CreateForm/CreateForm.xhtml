@@ -196,7 +196,7 @@
             </p:outputPanel>
             <f:facet name="footer">
                 <p:commandButton value="#{ivy.cm.co('/manipulate/Save')}" icon="pi pi-check" actionListener="#{logic.saveEmployee}"
-                    update="manage-employee-content form" oncomplete="PF('manageEmployeeDialog').hide()" />
+                    update="manage-employee-content form" />
                     
                 <p:commandButton value="#{ivy.cm.co('/manipulate/Cancel')}" icon="pi pi-times" onclick="PF('manageEmployeeDialog').hide()"
                     class="ui-button-secondary" type="button" /> 
